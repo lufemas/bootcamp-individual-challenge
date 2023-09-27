@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package com.lufemas.server_bootcamp.service;
 
-import net.javaguides.springboot.model.PessoaJuridica;
+import com.lufemas.server_bootcamp.model.PessoaJuridica;
 
 import java.util.List;
 
@@ -14,4 +14,8 @@ public interface PessoaJuridicaService {
 	PessoaJuridica getPessoaJuridicaById(long pessoaJuridicaId);
 
 	void deletePessoaJuridica(long id);
+
+	PessoaJuridica adicionarPessoaJuridica(PessoaJuridica pessoaJuridica);
+
+	PessoaJuridica retirarProximoClienteDaFila();
 }

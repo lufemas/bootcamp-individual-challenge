@@ -1,8 +1,8 @@
-package net.javaguides.springboot.controller;
+package com.lufemas.server_bootcamp.controller;
 
 import jakarta.validation.Valid;
-import net.javaguides.springboot.model.PessoaJuridica;
-import net.javaguides.springboot.service.PessoaJuridicaService;
+import com.lufemas.server_bootcamp.model.PessoaJuridica;
+import com.lufemas.server_bootcamp.service.PessoaJuridicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-//import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,8 +32,8 @@ public class PessoaJuridicaController {
 
 	@PostMapping("/create")
 	public ResponseEntity<?> createPessoaJuridica(@Valid @RequestBody PessoaJuridica pessoaJuridica, BindingResult result) {
+		System.out.println("[PessoaJuridicaController.java] POST /create");
 		if (result.hasErrors()) {
-			// Handle validation errors and return appropriate response
 			return ResponseEntity.badRequest().body("Validation errors occurred.");
 		}
 
@@ -51,5 +50,18 @@ public class PessoaJuridicaController {
 	public ResponseEntity<String> deletePessoaJuridica(@PathVariable long id) {
 		pessoaJuridicaService.deletePessoaJuridica(id);
 		return ResponseEntity.ok().body("Pessoa Juridica with ID: " + id + " deleted successfully.");
+	}
+
+	@PostMapping("/fila-de-atendimento/adicionar")
+	public ResponseEntity<String> adicionarClienteAFila(@RequestBody PessoaJuridica pessoaJuridica) {
+		try {
+			// Use o método adicionarPessoaJuridica do serviço para adicionar o cliente e colocá-lo na fila
+			PessoaJuridica pessoaAdicionada = pessoaJuridicaService.adicionarPessoaJuridica(pessoaJuridica);
+
+			return ResponseEntity.ok("Cliente adicionado à fila de atendimento com sucesso.");
+		} catch (RuntimeException  ex) {
+			// Em caso de exceção, você pode tratar de acordo com a sua lógica
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar cliente à fila de atendimento.");
+		}
 	}
 }
