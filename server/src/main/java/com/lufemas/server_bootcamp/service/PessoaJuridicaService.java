@@ -15,7 +15,7 @@ public interface PessoaJuridicaService {
 
 	void deletePessoaJuridica(long id);
 
-	PessoaJuridica adicionarPessoaJuridica(PessoaJuridica pessoaJuridica);
+	PessoaJuridica adicionarPessoaJuridicaAFila(PessoaJuridica pessoaJuridica);
 
-	PessoaJuridica retirarProximoClienteDaFila();
+	PessoaJuridica retirarProximaPessoaJuridicaDaFila();
 }

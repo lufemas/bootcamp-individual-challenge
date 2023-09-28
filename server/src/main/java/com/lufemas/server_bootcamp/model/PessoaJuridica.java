@@ -66,12 +66,6 @@ public class PessoaJuridica implements Cliente{
 		return "ID: " + getId() + ", CNPJ: " + getCnpj() + ", Razão Social: " + getRazaoSocial();
 	}
 
-	// Getter and Setter methods
-	@Override
-	public long getId() {
-		return id;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		// Verifica se o objeto atual (this) é igual ao objeto sendo comparado (o).
@@ -92,6 +86,12 @@ public class PessoaJuridica implements Cliente{
 	public int hashCode() {
 		// Calcula o código de hash com base no campo 'id' do objeto.
 		return Objects.hash(id);
+	}
+
+	// Getter and Setter methods
+	@Override
+	public long getId() {
+		return id;
 	}
 
 	public void setId(long id) {

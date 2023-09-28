@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pessoa_fisica")
@@ -45,6 +46,33 @@ public class PessoaFisica implements Cliente{
 
     @CreationTimestamp
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "ID: " + getId() + ", CPF: " + getCpf() + ", Nome: " + getNome();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // Verifica se o objeto atual (this) é igual ao objeto sendo comparado (o).
+        if (this == o) return true;
+
+        // Verifica se o objeto sendo comparado (o) é nulo ou pertence a uma classe diferente.
+        if (o == null || getClass() != o.getClass()) return false;
+
+        // Faz um cast do objeto sendo comparado (o) para o tipo da classe atual (PessoaJuridica).
+        PessoaFisica that = (PessoaFisica) o;
+
+        // Compara os IDs dos objetos atual (this) e sendo comparado (that).
+        // Se os IDs forem iguais, consideramos os objetos como iguais.
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        // Calcula o código de hash com base no campo 'id' do objeto.
+        return Objects.hash(id);
+    }
 
     // Getter and Setter methods
     @Override

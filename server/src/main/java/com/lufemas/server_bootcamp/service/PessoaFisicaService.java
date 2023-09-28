@@ -1,6 +1,7 @@
 package com.lufemas.server_bootcamp.service;
 
 import com.lufemas.server_bootcamp.model.PessoaFisica;
+import com.lufemas.server_bootcamp.model.PessoaJuridica;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,4 +17,8 @@ public interface PessoaFisicaService {
     PessoaFisica getPessoaFisicaById(long pessoaFisicaId);
 
     void deletePessoaFisica(long id);
+
+    PessoaFisica adicionarPessoaFisicaAFila(PessoaFisica pessoaFisica);
+
+    PessoaFisica retirarProximaPessoaFisicaDaFila();
 }

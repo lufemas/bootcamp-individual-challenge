@@ -1,5 +1,6 @@
 package com.lufemas.server_bootcamp.controller;
 
+import com.lufemas.server_bootcamp.exception.FilaDeAtendimentoVaziaException;
 import jakarta.validation.Valid;
 import com.lufemas.server_bootcamp.model.PessoaFisica;
 import com.lufemas.server_bootcamp.service.PessoaFisicaService;
@@ -50,5 +51,37 @@ public class PessoaFisicaController {
     public ResponseEntity<String> deletePessoaFisica(@PathVariable long id) {
         pessoaFisicaService.deletePessoaFisica(id);
         return ResponseEntity.ok().body("Pessoa Física with ID: " + id + " deleted successfully.");
+    }
+
+    @PostMapping("/fila-de-atendimento/adicionar")
+    public ResponseEntity<String> adicionarPessoaFisicaAFila(@RequestBody PessoaFisica pessoaFisica) {
+        try {
+            // Utilizando o método adicionarPessoaFisicaAFila do serviço para adicionar o cliente e colocá-lo na fila
+            PessoaFisica pessoaAdicionada = pessoaFisicaService.adicionarPessoaFisicaAFila(pessoaFisica);
+
+            return ResponseEntity.ok("Cliente adicionado à fila de atendimento com sucesso.");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar cliente à fila de atendimento.");
+        }
+    }
+
+    @GetMapping("/fila-de-atendimento/proximo")
+    public ResponseEntity<PessoaFisica> removerPessoaFisicaDaFila() {
+        try {
+            // Utilizando o método retirarProximoClienteDaFila do serviço para remover o próximo cliente da fila
+            PessoaFisica clienteRemovido = pessoaFisicaService.retirarProximaPessoaFisicaDaFila();
+
+            if (clienteRemovido != null) {
+                return ResponseEntity.ok(clienteRemovido); // Respond with the removed client
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (FilaDeAtendimentoVaziaException ex) {
+            // Exceção de fila vazia
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (RuntimeException ex) {
+            // Exceção genérica
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

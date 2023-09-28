@@ -37,31 +37,17 @@ public class PessoaJuridicaServiceImpl implements PessoaJuridicaService {
 @Override
 public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 	System.out.println("createPessoaJuridica");
-	// Verifique se já existe um registro com o mesmo CNPJ
+	// Verificando se já existe um registro com o mesmo CNPJ
 	if (pessoaJuridicaRepository.existsByCnpj(pessoaJuridica.getCnpj())) {
 		throw new ResourceAlreadyExistsException("Pessoa Jurídica com CNPJ já cadastrado.");
 	}
 	PessoaJuridica pessoaAdicionada = pessoaJuridicaRepository.save(pessoaJuridica);
-	// Adicionar a pessoa à fila de atendimento
+	// Adicionando à fila de atendimento
 	filaDeAtendimento.adicionarCliente(pessoaAdicionada);
 
 	filaDeAtendimento.imprimirFila();
 	return pessoaAdicionada;
 }
-
-//@Override
-//public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
-//	// Validate the entity before saving
-//	Set<ConstraintViolation<PessoaJuridica>> violations = validator.validate(pessoaJuridica);
-//	System.out.println("Validation");
-//	System.out.println(violations);
-//	if (!violations.isEmpty()) {
-//		// Handle validation errors
-//		throw new ConstraintViolationException(violations);
-//	}
-//
-//	return pessoaJuridicaRepository.save(pessoaJuridica);
-//}
 
 	@Override
 	public PessoaJuridica updatePessoaJuridica(PessoaJuridica pessoaJuridica) {
@@ -71,7 +57,7 @@ public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		if (pessoaJuridicaDb.isPresent()) {
 			PessoaJuridica pessoaJuridicaUpdate = pessoaJuridicaDb.get();
 
-			// Verifique se a pessoa está na fila
+			// Verificando se a pessoa está na fila
 			if (filaDeAtendimento.contemCliente(pessoaJuridicaUpdate)) {
 				// Se estiver na fila, remova-a antes de atualizar
 				filaDeAtendimento.removerCliente(pessoaJuridicaUpdate);
@@ -83,16 +69,16 @@ public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 			pessoaJuridicaUpdate.setCpfContato(pessoaJuridica.getCpfContato());
 			pessoaJuridicaUpdate.setEmailContato(pessoaJuridica.getEmailContato());
 
-			// Atualize a Pessoa Jurídica
+			// Atualizando a Pessoa Jurídica
 			PessoaJuridica pessoaAtualizada = pessoaJuridicaRepository.save(pessoaJuridicaUpdate);
 
-			// Adicione a pessoa atualizada à fila de atendimento
+			// Adicionando a pessoa atualizada de volta à fila de atendimento
 			filaDeAtendimento.adicionarCliente(pessoaAtualizada);
 
 			filaDeAtendimento.imprimirFila();
 			return pessoaAtualizada;
 		} else {
-			throw new ResourceNotFoundException("Pessoa Jurídica com ID não encontrado : " + pessoaJuridica.getId());
+			throw new ResourceNotFoundException("Pessoa Jurídica com ID não encontrado: " + pessoaJuridica.getId());
 		}
 	}
 
@@ -123,7 +109,7 @@ public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		}
 	}
 
-	public PessoaJuridica adicionarPessoaJuridica(PessoaJuridica pessoaJuridica) {
+	public PessoaJuridica adicionarPessoaJuridicaAFila(PessoaJuridica pessoaJuridica) {
 		// Lógica para adicionar a pessoa ao sistema
 		PessoaJuridica pessoaAdicionada = pessoaJuridicaRepository.save(pessoaJuridica);
 
@@ -133,13 +119,13 @@ public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		return pessoaAdicionada;
 	}
 
-	public PessoaJuridica retirarProximoClienteDaFila() {
-		// Verifique se a fila está vazia
+	public PessoaJuridica retirarProximaPessoaJuridicaDaFila() {
+		// Verificando se a fila está vazia
 		if (filaDeAtendimento.estaVazia()) {
 			throw new FilaDeAtendimentoVaziaException("A fila de atendimento está vazia.");
 		}
 
-		// Retire o próximo cliente da fila
+		// Retirando o próximo cliente da fila
 		return filaDeAtendimento.retirarProximoCliente();
 	}
 }

@@ -1,5 +1,6 @@
 package com.lufemas.server_bootcamp.controller;
 
+import com.lufemas.server_bootcamp.exception.FilaDeAtendimentoVaziaException;
 import jakarta.validation.Valid;
 import com.lufemas.server_bootcamp.model.PessoaJuridica;
 import com.lufemas.server_bootcamp.service.PessoaJuridicaService;
@@ -53,15 +54,35 @@ public class PessoaJuridicaController {
 	}
 
 	@PostMapping("/fila-de-atendimento/adicionar")
-	public ResponseEntity<String> adicionarClienteAFila(@RequestBody PessoaJuridica pessoaJuridica) {
+	public ResponseEntity<String> adicionarPessoaJuridicaAFila(@RequestBody PessoaJuridica pessoaJuridica) {
 		try {
-			// Use o método adicionarPessoaJuridica do serviço para adicionar o cliente e colocá-lo na fila
-			PessoaJuridica pessoaAdicionada = pessoaJuridicaService.adicionarPessoaJuridica(pessoaJuridica);
+			// Utilizando método adicionarPessoaJuridica do serviço para adicionar o cliente e colocá-lo na fila
+			PessoaJuridica pessoaAdicionada = pessoaJuridicaService.adicionarPessoaJuridicaAFila(pessoaJuridica);
 
 			return ResponseEntity.ok("Cliente adicionado à fila de atendimento com sucesso.");
 		} catch (RuntimeException  ex) {
-			// Em caso de exceção, você pode tratar de acordo com a sua lógica
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar cliente à fila de atendimento.");
 		}
 	}
+
+	@GetMapping("/fila-de-atendimento/proximo")
+	public ResponseEntity<PessoaJuridica> removerPessoaJuridicaDaFila() {
+		try {
+			// Utilizando o método retirarProximoClienteDaFila do serviço para remover o próximo cliente da fila
+			PessoaJuridica clienteRemovido = pessoaJuridicaService.retirarProximaPessoaJuridicaDaFila();
+
+			if (clienteRemovido != null) {
+				return ResponseEntity.ok(clienteRemovido);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+		} catch (FilaDeAtendimentoVaziaException ex) {
+			// Exceção de fila vazia
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} catch (RuntimeException ex) {
+			// Exceção genérica
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
+
 }
