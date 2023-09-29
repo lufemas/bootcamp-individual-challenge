@@ -1,0 +1,16 @@
+.toolbar {
+  flex-direction: column;
+}
+
+.logo {
+  max-height: 1em;
+  width: auto;
+  margin-right: 1em;
+}
+
+@media (min-width: 768px) {
+  .toolbar {
+  flex-direction: row;
+  }
+}
+

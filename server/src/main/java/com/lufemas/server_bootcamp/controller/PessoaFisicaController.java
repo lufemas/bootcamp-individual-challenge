@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/pessoa-fisica")
+@CrossOrigin()
 public class PessoaFisicaController {
 
     @Autowired

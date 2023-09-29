@@ -1,0 +1,23 @@
+{
+  "pt_br":
+    {
+      "none": "Nenhum",
+      "administrator": "Administrador",
+      "customer": "Cliente",
+      "homepage": "Início",
+      "loggedUser": "Usuário Logado",
+      "serverAddress": "Endereço do Servidor",
+      "message": "Mensagem",
+      "messageForm": "Formulário de Mensagem",
+      "messageSent": "A Mensagem foi enviada com sucesso.",
+      "messagesError": "Ocorreu um erro ao enviar a mensagem",
+      "send": "Enviar",
+      "selectOption": "Selecionar Opção",
+      "loggedOut": "Sem Sessão",
+      "loggedIn": "Sessão Ativa",
+      "menuAdd": "Adicionar",
+      "menuSearch": "Consultar",
+      "menuEdit": "Alterar",
+      "menuDelete": "Excluir"
+    }
+}
