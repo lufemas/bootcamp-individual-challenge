@@ -70,9 +70,9 @@ const TopNavigation: React.FC = () => {
                 color="inherit"
                 className={loggedUser}
                 component={Link}
-                to="./edit"
+                to="./fila-de-atendimento"
               >
-                {translate("menuEdit")}
+                {translate("menuQueue")}
               </Button>
               <Button
                 color="inherit"

@@ -30,7 +30,7 @@ class ApiService {
     }
   }
 
-  static async adicionarPessoaJuridicaAFila(data: any): Promise<AxiosResponse | any> {
+  static async addPessoaJuridicaAFila(data: any): Promise<AxiosResponse | any> {
     try {
       const response = await axios.post(`${this.apiBaseUrl}/pessoa-juridica/fila-de-atendimento/adicionar`, data);
       return response.data;
@@ -40,7 +40,7 @@ class ApiService {
     }
   }
 
-  static async adicionarPessoaFisicaAFila(data: any): Promise<AxiosResponse | any> {
+  static async addPessoaFisicaAFila(data: any): Promise<AxiosResponse | any> {
     try {
       const response = await axios.post(`${this.apiBaseUrl}/pessoa-fisica/fila-de-atendimento/adicionar`, data);
       return response.data;
@@ -90,7 +90,7 @@ class ApiService {
     }
   }
 
-  static async removerPessoaJuridicaDaFila(): Promise<AxiosResponse | any> {
+  static async nextOnQueuePessoaJuridica(): Promise<AxiosResponse | any> {
     try {
       const response = await axios.get(`${this.apiBaseUrl}/pessoa-juridica/fila-de-atendimento/proximo`);
       return response.data;
@@ -120,7 +120,7 @@ class ApiService {
     }
   }
 
-  static async removerPessoaFisicaDaFila(): Promise<AxiosResponse | any> {
+  static async nextOnQueuePessoaFisica(): Promise<AxiosResponse | any> {
     try {
       const response = await axios.get(`${this.apiBaseUrl}/pessoa-fisica/fila-de-atendimento/proximo`);
       return response.data;

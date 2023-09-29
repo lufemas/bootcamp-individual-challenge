@@ -7,6 +7,7 @@ import AddPage from './pages/AddPage';
 import EditPage from './pages/EditPage';
 import SearchPage from './pages/SearchPage';
 import DeletePage from './pages/DeletePage';
+import QueuePage from './pages/QueuePage';
 
 const Router: React.FC = () => {
   return (
@@ -16,9 +17,9 @@ const Router: React.FC = () => {
           <Route path="*" element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/add" element={<AddPage />} />
-          <Route path="/edit" element={<EditPage />} />
+          {/* <Route path="/edit" element={<EditPage />} /> */}
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/delete" element={<DeletePage />} />
+          <Route path="/fila-de-atendimento" element={<QueuePage />} />
           {/* <Route path="/consume-messages" element={<ListMessagesPage />} /> */}
         </Routes>
       </Layout>

@@ -75,11 +75,11 @@ public class PessoaFisicaController {
             if (clienteRemovido != null) {
                 return ResponseEntity.ok(clienteRemovido); // Respond with the removed client
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
             }
         } catch (FilaDeAtendimentoVaziaException ex) {
             // Exceção de fila vazia
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch (RuntimeException ex) {
             // Exceção genérica
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

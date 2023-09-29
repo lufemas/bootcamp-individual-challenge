@@ -40,16 +40,20 @@ const AddPessoaFisica: React.FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Box mb={2}>
-        <TextField
-          fullWidth
-          label="CPF"
-          name="cpf"
-          type="text"
-          variant="outlined"
-          value={formData.cpf}
-          onChange={handleChange}
-          inputProps={{ maxLength: 11 }}
-        />
+      <TextField
+        fullWidth
+        label="CPF"
+        name="cpf"
+        type="text"
+        variant="outlined"
+        value={formData.cpf}
+        onChange={handleChange}
+        inputProps={{
+          maxLength: 11,
+          pattern: '^[0-9]*$',
+          title: translate('invalidCPF'),
+        }}
+      />
       </Box>
       <Box mb={2}>
         <TextField
@@ -60,7 +64,10 @@ const AddPessoaFisica: React.FC = () => {
           variant="outlined"
           value={formData.mcc}
           onChange={handleChange}
-          inputProps={{ maxLength: 4 }}
+          inputProps={{
+            maxLength: 4,
+            pattern: '^[0-9]*$',
+          }}
         />
       </Box>
       <Box mb={2}>
