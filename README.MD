@@ -84,7 +84,7 @@ A documentação da API pode ser encontrada no arquivo Swagger fornecido no repo
 Nesta aplicação, é possível cadastrar, consultar, editar e excluir clientes Pessoa Física e Jurídica. Cada cliente cadastrado será adicionado a uma fila de atendimento. Todo cliente que for alterado será movido para o final da fila.
 
 ## Navegação Principal
-- Início: Verificar se está logado e definir a URL do servidor.
+- Início: Definir a URL do servidor.
 - Adicionar: Adicionar/Cadastrar um novo cliente no Banco de Dados; automaticamente será adicionado à fila.
 - Consultar: Consultar clientes cadastrados.
   - Alterar/Excluir: A partir dos botões ao lado de cada cliente listado.
@@ -202,7 +202,7 @@ The API documentation can be found in the Swagger file provided in the repositor
 In this application, you can register, query, edit, and delete both legal entity and individual customers. Each registered customer will be added to a service queue. Any customer that is modified will be moved to the end of the queue.
 
 ## Main Navigation
-- Home: Check if logged in and set the server URL.
+- Home: Set the server URL.
 - Add: Add/Register a new customer to the Database; they will automatically be added to the queue.
 - Query: Query registered customers.
   - Modify/Delete: Accessed through buttons next to each listed customer.

@@ -2,7 +2,7 @@
 Nesta aplicação, é possível cadastrar, consultar, editar e excluir clientes Pessoa Física e Jurídica. Cada cliente cadastrado será adicionado a uma fila de atendimento. Todo cliente que for alterado será movido para o final da fila.
 
 ## Navegação Principal
-- Início: Verificar se está logado e definir a URL do servidor.
+- Início: Definir a URL do servidor.
 - Adicionar: Adicionar/Cadastrar um novo cliente no Banco de Dados; automaticamente será adicionado à fila.
 - Consultar: Consultar clientes cadastrados.
   - Alterar/Excluir: A partir dos botões ao lado de cada cliente listado.
