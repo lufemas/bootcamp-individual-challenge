@@ -98,7 +98,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="CNPJ"
+          label={translate('cnpj')}
           name="cnpj"
           type="text"
           variant="outlined"
@@ -116,7 +116,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="Razao Social"
+          label={translate('razaoSocial')}
           name="razaoSocial"
           type="text"
           variant="outlined"
@@ -130,7 +130,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="MCC"
+          label={translate('mcc')}
           name="mcc"
           type="text"
           variant="outlined"
@@ -144,7 +144,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="CPF do Contato"
+          label={translate('cpfContato')}
           name="cpfContato"
           type="text"
           variant="outlined"
@@ -162,7 +162,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="Nome do Contato"
+          label={translate('nomeContato')}
           name="nomeContato"
           type="text"
           variant="outlined"
@@ -176,7 +176,7 @@ const AddPessoaJuridica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="Email do Contato"
+          label={translate('emailContato')}
           name="emailContato"
           type="email"
           variant="outlined"

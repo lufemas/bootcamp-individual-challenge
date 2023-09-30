@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -17,15 +17,32 @@ import cieloAdaLogo from "../images/cieloada.svg";
 import "./TopNavigation.css";
 
 const TopNavigation: React.FC = () => {
+  const location = useLocation();
   const { loginService, i18nService } = useServicesContext();
   const translate = i18nService.translate;
+
   // Estado para armazenar o usuário logado
   const [loggedUser, setLoggedUser] = useState(loginService.getLogin());
+  const [userLanguage, setUserLanguage] = useState(i18nService.userPreferredLanguage);
   const navigate = useNavigate();
+
   // Função para lidar com a mudança de usuário
   const changeLogin = (event: SelectChangeEvent<HTMLInputElement>) => {
-    setLoggedUser(loginService.loginAs(event.target.value));
-    navigate(`./${event.target.value}`);
+    loginService.loginAs(event.target.value)
+    setLoggedUser(event.target.value);
+    location.pathname === '/homepage'
+    ? navigate('./')
+    : navigate('./homepage');
+  };
+
+  // Função para lidar com a mudança de idioma
+  const changeLanguage = (event: SelectChangeEvent<HTMLInputElement>) => {
+    i18nService.setUserPreferredLanguage(event.target.value);
+    setUserLanguage(event.target.value);
+    console.log('location:', location)
+    location.pathname === '/homepage'
+    ? navigate('./')
+    : navigate('./homepage');
   };
 
   return (
@@ -84,6 +101,16 @@ const TopNavigation: React.FC = () => {
           >
             <MenuItem value="loggedIn">{translate("loggedIn")}</MenuItem>
             <MenuItem value="loggedOut">{translate("loggedOut")}</MenuItem>
+          </Select>
+          <div style={{ width: "10px" }}></div>
+
+          <Select
+            value={i18nService.userPreferredLanguage}
+            onChange={changeLanguage}
+            label={translate("selectOption")}
+          >
+            <MenuItem value="pt_br">{translate("pt_br")}</MenuItem>
+            <MenuItem value="en">{translate("en")}</MenuItem>
           </Select>
         </Toolbar>
       </AppBar>

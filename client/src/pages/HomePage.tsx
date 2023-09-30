@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   const { loginService, i18nService, apiService } = useServicesContext();
   const translate = i18nService.translate;
 
-  const [loggedUser, setLoggedUser] = useState("");
+  const [loggedUser, setLoggedUser] = useState(loginService.getLogin());
   const [baseUrl, setBaseUrl] = useState(apiService.getBaseUrl());
 
   // Função para mudar a URL base do servidor
@@ -33,12 +33,12 @@ const HomePage: React.FC = () => {
       <br />
       <Card sx={{ minWidth: 275, maxWidth: 400 }}>
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {translate("loggeduser")}:
           </Typography>
           <Typography variant="h6" component="div">
             {translate(loggedUser)}
-          </Typography>
+          </Typography> */}
           <br />
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {translate("serveraddress")}:

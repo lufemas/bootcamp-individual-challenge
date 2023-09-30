@@ -98,9 +98,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, clientType, onDelete, onEdi
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Action</TableCell>
+              <TableCell>{translate('action')}</TableCell>
               {Object.keys(data[0]).map((field, index) => (
-                <TableCell key={index}>{field}</TableCell>
+                <TableCell key={index}>{translate(field)}</TableCell>
               ))}
             </TableRow>
           </TableHead>

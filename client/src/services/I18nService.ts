@@ -53,6 +53,14 @@ class I18nService {
       delete: "Excluir",
       loggeduser: "Sessão",
       serveraddress: "Endereço do Servidor",
+      pessoaJuridica: "Pessoa Jurídica",
+      pessoaFisica: "Pessoa Fisica",
+      pt_br: "🇧🇷 Português",
+      en: "🇬🇧 Inglês",
+      action: "Ação",
+      createdAt: "Criado em",
+      updatedAt: "Alterado em"
+
     },
     en: {
       administrator: "Administrator",
@@ -100,6 +108,13 @@ class I18nService {
       delete: "Delete",
       loggeduser: "Session",
       serveraddress: "Server Address",
+      pessoaJuridica: "Legal Entity",
+      pessoaFisica: "Individual",
+      pt_br: "🇧🇷 Portuguese",
+      en: "🇬🇧 English",
+      action: "Action",
+      createdAt: "Created at",
+      updatedAt: "Updated at"
     },
   };
 
@@ -119,6 +134,14 @@ class I18nService {
     if (options.plural) token += "s";
     return this.translations[this.userPreferredLanguage]?.[token] || token;
   };
+
+  /**
+   * Set the user's preferred language.
+   * @param {string} language - The preferred language code (e.g., 'pt_br' or 'en').
+   */
+  static setUserPreferredLanguage(language: string): void {
+      this.userPreferredLanguage = language;
+  }
 }
 
 export default I18nService;

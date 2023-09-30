@@ -86,7 +86,7 @@ const AddPessoaFisica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="CPF"
+          label={translate('cpf')}
           name="cpf"
           type="text"
           variant="outlined"
@@ -104,7 +104,7 @@ const AddPessoaFisica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="MCC"
+          label={translate('mcc')}
           name="mcc"
           type="text"
           variant="outlined"
@@ -118,7 +118,7 @@ const AddPessoaFisica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="Nome"
+          label={translate('name')}
           name="nome"
           type="text"
           variant="outlined"
@@ -132,7 +132,7 @@ const AddPessoaFisica: React.FC = () => {
       <Box mb={2}>
         <TextField
           fullWidth
-          label="Email"
+          label={translate('email')}
           name="email"
           type="email"
           variant="outlined"

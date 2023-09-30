@@ -42,12 +42,12 @@ const AddPage: React.FC = () => {
           <FormControlLabel
             value="pessoaJuridica"
             control={<Radio />}
-            label="Pessoa Jurídica"
+            label={translate('pessoaJuridica')}
           />
           <FormControlLabel
             value="pessoaFisica"
             control={<Radio />}
-            label="Pessoa Física"
+            label={translate('pessoaFisica')}
           />
         </RadioGroup>
         <Card>

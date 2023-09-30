@@ -59,7 +59,7 @@ function SearchPage() {
             checked={selectedOption === 'pessoaJuridica'}
             onChange={handleOptionChange}
           />
-          Pessoa Juridica
+          {translate('pessoaJuridica')}
         </Typography>
         <Typography>
           <input
@@ -68,7 +68,7 @@ function SearchPage() {
             checked={selectedOption === 'pessoaFisica'}
             onChange={handleOptionChange}
           />
-          Pessoa Fisica
+          {translate('pessoaFisica')}
         </Typography>
       </div>
       <br />
