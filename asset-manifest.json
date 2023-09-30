@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/css/main.39b9b550.css",
-    "main.js": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/main.88c3b86d.js",
+    "main.js": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/main.1a0fd0e8.js",
     "static/js/787.2d6d7eea.chunk.js": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/787.2d6d7eea.chunk.js",
     "static/media/cieloada.svg": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/media/cieloada.3c764cf92d925bac25e31b408a2f075c.svg",
     "index.html": "/bootcamp-cielo-desafio1-ouvidoria-frontend/index.html",
     "main.39b9b550.css.map": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/css/main.39b9b550.css.map",
-    "main.88c3b86d.js.map": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/main.88c3b86d.js.map",
+    "main.1a0fd0e8.js.map": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/main.1a0fd0e8.js.map",
     "787.2d6d7eea.chunk.js.map": "/bootcamp-cielo-desafio1-ouvidoria-frontend/static/js/787.2d6d7eea.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.39b9b550.css",
-    "static/js/main.88c3b86d.js"
+    "static/js/main.1a0fd0e8.js"
   ]
 }
