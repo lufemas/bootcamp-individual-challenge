@@ -13,20 +13,23 @@ interface FormData {
   emailContato: string;
 }
 
-const initialFormData: FormData = {
-  cnpj: '',
-  razaoSocial: '',
-  mcc: '',
-  cpfContato: '',
-  nomeContato: '',
-  emailContato: '',
-};
+interface EditPessoaJuridicaProps {
+  id: number;
+  initialData: any;
+  onEditComplete: () => void;
+}
 
-const AddPessoaJuridica: React.FC = () => {
+const EditPessoaJuridica: React.FC<EditPessoaJuridicaProps> = ({
+  id,
+  initialData,
+  onEditComplete,
+}) => {
   const { apiService, i18nService } = useServicesContext();
   const translate = i18nService.translate;
 
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<FormData>({
+    ...initialData,
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -36,60 +39,44 @@ const AddPessoaJuridica: React.FC = () => {
     });
   };
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('Sending...');
+    await apiService.updatePessoaJuridica(id, formData);
+    console.log(formData);
+    onEditComplete();
+  };
+
   const validateField = (fieldName: keyof FormData) => {
     switch (fieldName) {
       case 'cnpj':
         return /^\d{14}$/.test(formData.cnpj)
           ? null
-          : translate('invalidCnpj');
+          : 'Invalid CNPJ (14 digits with leading zeros)';
       case 'razaoSocial':
         return formData.razaoSocial.length <= 50
           ? null
-          : translate('nameTooLong50Max');
+          : 'Razao Social is too long (maximum 50 characters)';
       case 'mcc':
         return formData.mcc.length <= 4
           ? null
-          : translate('mccTooLong4Max');
+          : 'MCC is too long (maximum 4 characters)';
       case 'cpfContato':
         return /^\d{11}$/.test(formData.cpfContato)
           ? null
-          : translate('invalidCpf');
+          : 'Invalid CPF Contato (11 digits with leading zeros)';
       case 'nomeContato':
         return formData.nomeContato.length <= 50
           ? null
-          : translate('nameTooLong50Max');
+          : 'Nome Contato is too long (maximum 50 characters)';
       case 'emailContato':
         return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(
           formData.emailContato
         )
           ? null
-          : translate('invalidEmail');
+          : 'Invalid Email Contato';
       default:
         return null;
-    }
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // Validate all fields
-    const validationErrors: Partial<FormData> = {};
-    for (const fieldName of Object.keys(formData) as Array<keyof FormData>) {
-      const validationError = validateField(fieldName);
-      if (validationError !== null) {
-        validationErrors[fieldName] = validationError;
-      }
-    }
-
-    if (Object.keys(validationErrors).length === 0) {
-      console.log('Sending...');
-      await apiService.createPessoaJuridica(formData);
-      console.log(formData);
-
-      // Reset the form after a successful submission
-      setFormData(initialFormData);
-    } else {
-      console.log('Form validation failed.');
     }
   };
 
@@ -183,17 +170,17 @@ const AddPessoaJuridica: React.FC = () => {
           value={formData.emailContato}
           onChange={handleChange}
           inputProps={{
-            pattern: '^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\\.([a-zA-Z]{2,5})$',
+            pattern: '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$',
           }}
           error={Boolean(validateField('emailContato'))}
           helperText={validateField('emailContato')}
         />
       </Box>
       <Button type="submit" variant="contained" color="primary">
-        {translate('submit')}
+        {translate('edit')}
       </Button>
     </form>
   );
 };
 
-export default AddPessoaJuridica;
+export default EditPessoaJuridica;

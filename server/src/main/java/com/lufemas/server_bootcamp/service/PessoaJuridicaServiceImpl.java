@@ -67,6 +67,7 @@ public PessoaJuridica createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 			pessoaJuridicaUpdate.setRazaoSocial(pessoaJuridica.getRazaoSocial());
 			pessoaJuridicaUpdate.setMcc(pessoaJuridica.getMcc());
 			pessoaJuridicaUpdate.setCpfContato(pessoaJuridica.getCpfContato());
+			pessoaJuridicaUpdate.setNomeContato(pessoaJuridica.getNomeContato());
 			pessoaJuridicaUpdate.setEmailContato(pessoaJuridica.getEmailContato());
 
 			// Atualizando a Pessoa Jurídica

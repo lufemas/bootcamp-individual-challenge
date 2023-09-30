@@ -11,10 +11,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useServicesContext } from "../services/ServicesContext";
-import Spinner from "../components/Spinner";
 import PermissionCheck from "../components/PermissionCheck";
-import AddPessoaJuridica from "../components/AddPessoaJuridica";
-import AddPessoaFisica from "../components/AddPessoaFisica";
 import PessoaFisicaQueue from "../components/PessoaFisicaQueue";
 import PessoaJuridicaQueue from "../components/PessoaJuridicaQueue";
 

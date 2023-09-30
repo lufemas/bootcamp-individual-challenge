@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import { useServicesContext } from "../services/ServicesContext";
 import Spinner from "../components/Spinner";
 import PermissionCheck from "../components/PermissionCheck";
-import AddComponent from "../components/AddComponent";
 import AddPessoaJuridica from "../components/AddPessoaJuridica";
 import AddPessoaFisica from "../components/AddPessoaFisica";
 

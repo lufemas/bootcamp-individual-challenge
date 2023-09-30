@@ -74,14 +74,6 @@ const TopNavigation: React.FC = () => {
               >
                 {translate("menuQueue")}
               </Button>
-              <Button
-                color="inherit"
-                className={loggedUser}
-                component={Link}
-                to="./delete"
-              >
-                {translate("menuDelete")}
-              </Button>
             </>
           )}
           <div style={{ flexGrow: 1 }}></div>

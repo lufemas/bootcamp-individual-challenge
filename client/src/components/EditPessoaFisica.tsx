@@ -11,18 +11,23 @@ interface FormData {
   email: string;
 }
 
-const initialFormData: FormData = {
-  cpf: '',
-  mcc: '',
-  nome: '',
-  email: '',
-};
+interface EditPessoaFisicaProps {
+  id: number;
+  initialData: any;
+  onEditComplete: () => void;
+}
 
-const AddPessoaFisica: React.FC = () => {
+const EditPessoaFisica: React.FC<EditPessoaFisicaProps> = ({
+  id,
+  initialData,
+  onEditComplete,
+}) => {
   const { apiService, i18nService } = useServicesContext();
   const translate = i18nService.translate;
 
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<FormData>({
+    ...initialData,
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -32,53 +37,12 @@ const AddPessoaFisica: React.FC = () => {
     });
   };
 
-  const validateField = (fieldName: keyof FormData) => {
-    switch (fieldName) {
-      case 'cpf':
-        return /^\d{11}$/.test(formData.cpf)
-          ? null
-          : translate('invalidCpf');
-      case 'mcc':
-        return formData.mcc.length <= 4
-          ? null
-          : translate('mccTooLong4Max');
-      case 'nome':
-        return formData.nome.length <= 50
-          ? null
-          : translate('nameTooLong50Max');
-      case 'email':
-        return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(
-          formData.email
-        )
-          ? null
-          : translate('invalidEmail');
-      default:
-        return null;
-    }
-  };
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Validate all fields
-    const validationErrors: Partial<FormData> = {};
-    for (const fieldName of Object.keys(formData) as Array<keyof FormData>) {
-      const validationError = validateField(fieldName);
-      if (validationError !== null) {
-        validationErrors[fieldName] = validationError;
-      }
-    }
-
-    if (Object.keys(validationErrors).length === 0) {
-      console.log('Sending...');
-      await apiService.createPessoaFisica(formData);
-      console.log(formData);
-
-      // Reset the form after a successful submission
-      setFormData(initialFormData);
-    } else {
-      console.log('Form validation failed.');
-    }
+    console.log('Sending...');
+    await apiService.updatePessoaFisica(id, formData);
+    console.log(formData);
+    onEditComplete(); // Call a callback function to handle the edit completion
   };
 
   return (
@@ -95,10 +59,8 @@ const AddPessoaFisica: React.FC = () => {
           inputProps={{
             maxLength: 11,
             pattern: '^[0-9]*$',
-            title: 'Invalid CPF (11 digits with leading zeros)',
+            title: translate('invalidCPF'),
           }}
-          error={Boolean(validateField('cpf'))}
-          helperText={validateField('cpf')}
         />
       </Box>
       <Box mb={2}>
@@ -110,9 +72,10 @@ const AddPessoaFisica: React.FC = () => {
           variant="outlined"
           value={formData.mcc}
           onChange={handleChange}
-          inputProps={{ maxLength: 4 }}
-          error={Boolean(validateField('mcc'))}
-          helperText={validateField('mcc')}
+          inputProps={{
+            maxLength: 4,
+            pattern: '^[0-9]*$',
+          }}
         />
       </Box>
       <Box mb={2}>
@@ -125,8 +88,6 @@ const AddPessoaFisica: React.FC = () => {
           value={formData.nome}
           onChange={handleChange}
           inputProps={{ maxLength: 50 }}
-          error={Boolean(validateField('nome'))}
-          helperText={validateField('nome')}
         />
       </Box>
       <Box mb={2}>
@@ -141,15 +102,13 @@ const AddPessoaFisica: React.FC = () => {
           inputProps={{
             pattern: '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$',
           }}
-          error={Boolean(validateField('email'))}
-          helperText={validateField('email')}
         />
       </Box>
       <Button type="submit" variant="contained" color="primary">
-        {translate('submit')}
+        {translate('edit')}
       </Button>
     </form>
   );
 };
 
-export default AddPessoaFisica;
+export default EditPessoaFisica;

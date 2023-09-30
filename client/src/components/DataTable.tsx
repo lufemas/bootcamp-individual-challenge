@@ -15,14 +15,20 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useServicesContext } from '../services/ServicesContext';
+import { Button, Typography } from '@mui/material';
 
 interface DataTableProps {
   data: Array<{ [key: string]: any }>;
-  onDelete?: (id: number) => void;
-  onEdit?: (id: number) => void;
+  clientType: string;
+  onDelete?: (clientType: string) => void;
+  onEdit?: (id: number, itemData: { [key: string]: any }) => void;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
+const DataTable: React.FC<DataTableProps> = ({ data, clientType, onDelete, onEdit }) => {
+  const { apiService, i18nService } = useServicesContext();
+  const translate = i18nService.translate;
+
   const [filter, setFilter] = useState<string>('');
   const [filteredData, setFilteredData] = useState<Array<{ [key: string]: any }>>(data);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState<boolean>(false);
@@ -45,16 +51,21 @@ const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
     setFilteredData(data);
   }, [data]);
 
-  const handleDelete = () => {
-    if (onDelete && selectedItemId !== null) {
-      onDelete(selectedItemId);
+  const handleDelete = async () => {
+    if (selectedItemId !== null) {
+      console.log('selectedItemId:', selectedItemId)
+      clientType === 'pessoaJuridica'
+            ? await apiService.deletePessoaJuridica(selectedItemId)
+            : await apiService.deletePessoaFisica(selectedItemId)
+      onDelete && onDelete(clientType);
     }
     setDeleteConfirmationOpen(false);
   };
 
   const handleEdit = (id: number) => {
     if (onEdit) {
-      onEdit(id);
+      const selectedItem = data.find((item) => item.id === id);
+      onEdit(id, selectedItem || {});
     }
   };
 
@@ -70,7 +81,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
 
   if (!data || data.length === 0) {
     // Handle the case where there is no data to display.
-    return <div>No data available.</div>;
+    return <Typography>{translate('noData')}</Typography>;
   }
 
   return (
@@ -82,6 +93,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
         value={filter}
         onChange={handleFilterChange}
       />
+      <br />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -96,10 +108,10 @@ const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
             {filteredData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 <TableCell>
-                  <IconButton onClick={() => handleEdit(row.id)}>
+                  <IconButton title={translate('edit')} onClick={() => handleEdit(row.id)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDeleteConfirmationOpen(row.id)}>
+                  <IconButton title={translate('delete')} onClick={() => handleDeleteConfirmationOpen(row.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -112,19 +124,19 @@ const DataTable: React.FC<DataTableProps> = ({ data, onDelete, onEdit }) => {
         </Table>
       </TableContainer>
       <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogTitle>{translate('titleConfirm')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this item?
+            {translate('confirmDelete')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button onClick={handleDeleteConfirmationClose} color="primary">
+          <Button onClick={handleDeleteConfirmationClose} color="primary">
             Cancel
-          </button>
-          <button onClick={handleDelete} color="primary">
+          </Button>
+          <Button onClick={handleDelete} color="primary">
             Confirm
-          </button>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
